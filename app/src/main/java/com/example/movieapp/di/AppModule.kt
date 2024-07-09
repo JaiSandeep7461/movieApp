@@ -1,6 +1,6 @@
 package com.example.movieapp.di
 
-import com.example.movieapp.TodoApi
+import com.example.movieapp.MovieApi
 import com.example.movieapp.utils.Constants.BASE_URL
 import com.example.movieapp.utils.Constants.TOKEN
 import dagger.Module
@@ -18,7 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     private const val AUTHORIZATION = "Authorization"
     private const val BEARER = "Bearer"
     private const val TIMEOUT = 120L
@@ -45,8 +44,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMoviesApiRepo(retrofit: Retrofit):TodoApi=retrofit.create(TodoApi::class.java)
-
-
+    fun provideMoviesAPi(retrofit: Retrofit): MovieApi = retrofit.create(MovieApi::class.java)
 
 }

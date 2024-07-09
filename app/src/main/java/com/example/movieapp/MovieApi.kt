@@ -5,13 +5,13 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface TodoApi {
+interface MovieApi {
 
     @GET("/todos")
     suspend fun getTodos(): Response<List<Todo>>
 
     @GET("movie/popular?language=en-US")
-    suspend fun getMoviesList(
+    suspend fun getMovies(
         @Query("page") page:Int
     ):ItemResponse
 }
