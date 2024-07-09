@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-    val api: TodoApi by lazy {
+    val api: MovieApi by lazy {
 
         val interceptor = HttpLoggingInterceptor().apply {
             level=HttpLoggingInterceptor.Level.BODY
@@ -31,6 +31,6 @@ object RetrofitInstance {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(TodoApi::class.java)
+            .create(MovieApi::class.java)
     }
 }

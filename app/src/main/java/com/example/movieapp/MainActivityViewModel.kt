@@ -1,4 +1,4 @@
-package com.example.movieapp.ui
+package com.example.movieapp
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,24 +18,22 @@ class MainActivityViewModel @Inject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
+    private val _movieResponse = MutableStateFlow<Resource<PagingData<Item>>>(Resource.Loading())
+    val movieResponse: MutableStateFlow<Resource<PagingData<Item>>> = _movieResponse
+
     init {
         getMovieList()
     }
 
-    private val _movieResponse = MutableStateFlow<Resource<PagingData<Item>>>(Resource.Loading())
-    val movieResponse = _movieResponse
-
-    fun getMovieList() {
+    private fun getMovieList() {
         viewModelScope.launch {
             try {
-                repository.getMoviesList().cachedIn(viewModelScope).collectLatest { pagingData ->
+                repository.getMovies().cachedIn(viewModelScope).collect { pagingData ->
                     _movieResponse.value = Resource.Success(pagingData)
                 }
             } catch (e: Exception) {
                 _movieResponse.value = Resource.Error(e)
             }
         }
-
     }
-
 }
