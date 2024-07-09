@@ -6,7 +6,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieapp.MovieApi
 import com.example.movieapp.data.models.Item
+import com.example.movieapp.data.models.Result
 import com.example.movieapp.data.paging.MoviesDataSource
+import com.example.movieapp.data.paging.NowPlayingMovieDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -21,4 +23,17 @@ class MovieRepository @Inject constructor(
             MoviesDataSource(moviesApi)
         }).flow
     }
+
+
+    fun getNowPlaying():Flow<PagingData<Result>>{
+        return Pager(config = PagingConfig(
+            pageSize = 2,
+            enablePlaceholders = false,
+            prefetchDistance = 20
+        ),
+            pagingSourceFactory = {
+                NowPlayingMovieDataSource(moviesApi)
+            }).flow
+    }
+
 }
