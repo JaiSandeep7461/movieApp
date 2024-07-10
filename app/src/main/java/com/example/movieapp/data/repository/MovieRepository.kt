@@ -7,8 +7,10 @@ import androidx.paging.PagingData
 import com.example.movieapp.MovieApi
 import com.example.movieapp.data.models.Item
 import com.example.movieapp.data.models.Result
+import com.example.movieapp.data.models.TopRatedResult
 import com.example.movieapp.data.paging.MoviesDataSource
 import com.example.movieapp.data.paging.NowPlayingMovieDataSource
+import com.example.movieapp.data.paging.TopRatedDataResource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -34,6 +36,19 @@ class MovieRepository @Inject constructor(
             pagingSourceFactory = {
                 NowPlayingMovieDataSource(moviesApi)
             }).flow
+    }
+
+    fun getTopRatedPlaying():Flow<PagingData<TopRatedResult>>{
+        return Pager(
+            config = PagingConfig(
+                pageSize = 2,
+                enablePlaceholders = false,
+                prefetchDistance = 20
+            ),
+            pagingSourceFactory = {
+                TopRatedDataResource(moviesApi)
+            }
+        ).flow
     }
 
 }

@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.movieapp.data.models.Item
 import com.example.movieapp.data.models.Result
+import com.example.movieapp.data.models.TopRatedResult
 import com.example.movieapp.data.repository.MovieRepository
 import com.example.movieapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,10 @@ class MainActivityViewModel @Inject constructor(
 
     private val _nowPlayingResponse = MutableStateFlow<Resource<PagingData<Result>>>(Resource.Loading())
     val nowPlayingResponse:MutableStateFlow<Resource<PagingData<Result>>> = _nowPlayingResponse
+
+
+    private val _topRatedResponse = MutableStateFlow<Resource<PagingData<TopRatedResult>>>(Resource.Loading())
+    val topRatedResponse : MutableStateFlow<Resource<PagingData<TopRatedResult>>> = _topRatedResponse
 
     init {
         getNowPlayingList()
@@ -50,6 +55,18 @@ class MainActivityViewModel @Inject constructor(
                 }
             }catch (e:Exception){
                 _nowPlayingResponse.value = Resource.Error(e)
+            }
+        }
+    }
+
+    private fun getTopRatedList(){
+        viewModelScope.launch {
+            try {
+                repository.getTopRatedPlaying().cachedIn(viewModelScope).collect{pagingData->
+                    _topRatedResponse.value = Resource.Success(pagingData)
+                }
+            }catch (e:Exception){
+                _topRatedResponse.value = Resource.Error(e)
             }
         }
     }
