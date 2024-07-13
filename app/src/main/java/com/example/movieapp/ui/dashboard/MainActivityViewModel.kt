@@ -1,5 +1,6 @@
 package com.example.movieapp.ui.dashboard
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -32,7 +33,8 @@ class MainActivityViewModel @Inject constructor(
     val topRatedResponse : MutableStateFlow<Resource<PagingData<TopRatedResult>>> = _topRatedResponse
 
     init {
-        getNowPlayingList()
+        Log.e("13072024","This is Now Playing")
+        getMovieList()
     }
 
     private fun getMovieList() {

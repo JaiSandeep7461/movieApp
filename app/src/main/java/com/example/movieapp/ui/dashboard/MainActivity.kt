@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpObserver() {
-       /* lifecycleScope.launch {
+        lifecycleScope.launch {
             viewModel.movieResponse.collect {
                 when (it) {
                     is Resource.Error -> {}
@@ -48,9 +48,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        }*/
+        }
 
-        lifecycleScope.launch {
+        /*lifecycleScope.launch {
             viewModel.nowPlayingResponse.collect{
                 when(it){
                     is Resource.Error -> {}
@@ -60,11 +60,11 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
+        }*/
     }
 
     private fun setRecyclerView() = binding.rvTodos.apply {
         binding.rvTodos.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.rvTodos.adapter = nowPlayingAdapter
+        binding.rvTodos.adapter = moviesAdapter
     }
 }

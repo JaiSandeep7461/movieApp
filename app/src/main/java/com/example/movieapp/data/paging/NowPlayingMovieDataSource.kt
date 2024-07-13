@@ -1,5 +1,6 @@
 package com.example.movieapp.data.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.movieapp.MovieApi
@@ -19,6 +20,7 @@ class NowPlayingMovieDataSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Result> {
         try {
+            Log.e("13072024","This is Now Playing Datasource")
             val position = params.key?: STARTING_PAGE_INDEX
             val response = moviesApi.getNowPlaying(position)
             return LoadResult.Page(
