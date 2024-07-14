@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.movieapp.data.models.Item
 import com.example.movieapp.databinding.ItemTodoBinding
 
@@ -26,6 +27,9 @@ class MoviesAdapter : PagingDataAdapter<Item, MoviesAdapter.MovieViewHolder>(Dif
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Item) {
             binding.tvTitle.text = item.title
+            Glide.with(binding.ivMovieImage.context)
+                .load("https://image.tmdb.org/t/p/w500${item.backdropPath}")
+                .into(binding.ivMovieImage)
         }
     }
 

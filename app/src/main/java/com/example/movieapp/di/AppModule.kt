@@ -1,11 +1,15 @@
 package com.example.movieapp.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.movieapp.MovieApi
+import com.example.movieapp.db.BookmarkDatabase
 import com.example.movieapp.utils.Constants.BASE_URL
 import com.example.movieapp.utils.Constants.TOKEN
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -21,6 +25,8 @@ object AppModule {
     private const val AUTHORIZATION = "Authorization"
     private const val BEARER = "Bearer"
     private const val TIMEOUT = 120L
+    private const val BOOKMARK_DATABASE = "BookmarkDatabase"
+
 
     @Provides
     @Singleton
@@ -45,5 +51,13 @@ object AppModule {
     @Provides
     @Singleton
     fun provideMoviesAPi(retrofit: Retrofit): MovieApi = retrofit.create(MovieApi::class.java)
+
+    @Provides
+    @Singleton
+    fun providesSavedQuotesDatabase(@ApplicationContext context: Context): BookmarkDatabase {
+        return Room.
+        databaseBuilder(context, BookmarkDatabase::class.java, BOOKMARK_DATABASE)
+            .build()
+    }
 
 }

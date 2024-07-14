@@ -1,0 +1,71 @@
+package com.example.movieapp.ui.dashboard
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.movieapp.R
+import com.example.movieapp.databinding.FragmentDashboardBinding
+import com.example.movieapp.utils.Resource
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+
+
+@AndroidEntryPoint
+class DashboardFragment : Fragment() {
+
+    private var _binding:FragmentDashboardBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel by viewModels<DashboardViewModel>()
+
+    private lateinit var popularAdapter: MoviesAdapter
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding= FragmentDashboardBinding.inflate(inflater,container,false)
+        popularAdapter = MoviesAdapter()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpViews()
+        setUpObserver()
+    }
+
+    private fun setUpObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.movieResponse.collect{
+                when(it){
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        popularAdapter.submitData(it.dataFetched)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setUpViews() {
+        binding.rcvPopular.apply {
+            layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            adapter = popularAdapter
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+}
