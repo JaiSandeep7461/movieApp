@@ -1,9 +1,11 @@
 package com.example.movieapp.ui.dashboard
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.movieapp.data.models.BookmarkedMovie
 import com.example.movieapp.data.models.Item
 import com.example.movieapp.data.repository.MovieRepository
 import com.example.movieapp.utils.Resource
@@ -37,6 +39,39 @@ class DashboardViewModel @Inject constructor(
             }catch (e:Exception){
                 _movieResponse.value = Resource.Error(e)
             }
+        }
+    }
+
+    fun  getAllRecords() {
+        viewModelScope.launch {
+            Log.e("17072024","get db  data ${repository.getAllSavedQuotes().size}")
+            return@launch
+        }
+    }
+
+     fun addItemToDb(item: Item){
+        viewModelScope.launch {
+            repository.insertSavedMovie(
+                item
+                /*BookmarkedMovie(
+                    item.id,
+                    item.adult,
+                    item.backdropPath,
+                    item.id,
+                    item.originalLanguage,
+                    item.originalTitle,
+                    item.overview,
+                    item.popularity,
+                    item.posterPath,
+                    item.releaseDate,
+                    item.title,
+                    item.video,
+                    item.voteAverage,
+                    item.voteCount,
+                    item.isBookmarked
+                )*/
+
+                )
         }
     }
 

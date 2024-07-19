@@ -11,10 +11,11 @@ data class ItemResponse(
     @SerializedName("total_results") val totalResults: Int
 )
 
+@Entity(tableName = "BookmarkDatabase")
 data class Item(
+    @PrimaryKey(autoGenerate = true) val key: Int,
     val adult: Boolean,
     @SerializedName("backdrop_path") val backdropPath: String?,
-    @SerializedName("genre_ids") val genreIds: List<Int>,
     val id: Int,
     @SerializedName("original_language") val originalLanguage: String,
     @SerializedName("original_title") val originalTitle: String,
@@ -25,10 +26,10 @@ data class Item(
     val title: String,
     val video: Boolean,
     @SerializedName("vote_average") val voteAverage: Double,
-    @SerializedName("vote_count") val voteCount: Int
+    @SerializedName("vote_count") val voteCount: Int,
+    var isBookmarked: Boolean=false
 )
 
-@Entity(tableName = "BookmarkDatabase")
 data class BookmarkedMovie(
     @PrimaryKey val key: Int,
     val adult: Boolean,

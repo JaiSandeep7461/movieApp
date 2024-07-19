@@ -10,5 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/btn_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Data"
+        android:layout_margin="12dp"
+        android:layout_below="@+id/rcv_popular"/>
+
 
 </RelativeLayout>

@@ -54,7 +54,7 @@ class MovieRepository @Inject constructor(
         ).flow
     }
 
-    suspend fun insertSavedMovie(movie:BookmarkedMovie) = bookmarkDatabase.bookMarkedMovieDao().insertItem(movie)
+    suspend fun insertSavedMovie(movie:Item) = bookmarkDatabase.bookMarkedMovieDao().insertItem(movie)
 
     suspend fun deleteSavedQuote(movieText:String) = bookmarkDatabase.bookMarkedMovieDao().deleteItem(movieText)
 

@@ -33,8 +33,13 @@ class DashboardFragment : Fragment() {
     ): View? {
         _binding= FragmentDashboardBinding.inflate(inflater,container,false)
         popularAdapter = MoviesAdapter()
+
         popularAdapter.onItemClick= {item->
-            Log.e("16072024","The Item is >>> ${item.title}")
+            Log.e("17072024","Item data>>> ${item.title}")
+            viewModel.addItemToDb(item)
+        }
+        binding.btnData.setOnClickListener {
+            viewModel.getAllRecords()
         }
         return binding.root
     }
