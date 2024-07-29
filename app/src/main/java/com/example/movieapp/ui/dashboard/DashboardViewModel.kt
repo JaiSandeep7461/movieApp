@@ -5,13 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.movieapp.data.models.BookmarkedMovie
-import com.example.movieapp.data.models.Item
+import com.example.movieapp.data.models.popular.Result
 import com.example.movieapp.data.repository.MovieRepository
 import com.example.movieapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,9 +19,8 @@ class DashboardViewModel @Inject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val _movieResponse = MutableStateFlow<Resource<PagingData<Item>>>(Resource.Loading())
-    val movieResponse:MutableStateFlow<Resource<PagingData<Item>>> = _movieResponse
-
+    private val _movieResponse = MutableStateFlow<Resource<PagingData<Result>>>(Resource.Loading())
+    val movieResponse: MutableStateFlow<Resource<PagingData<Result>>> = _movieResponse
 
 
     init {
@@ -33,45 +30,28 @@ class DashboardViewModel @Inject constructor(
     private fun getPopularMovies() {
         viewModelScope.launch {
             try {
-                repository.getMovies().cachedIn(viewModelScope).collect{pagingData->
+                repository.getMovies().cachedIn(viewModelScope).collect { pagingData ->
                     _movieResponse.value = Resource.Success(pagingData)
                 }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 _movieResponse.value = Resource.Error(e)
             }
         }
     }
 
-    fun  getAllRecords() {
+    fun getAllRecords() {
         viewModelScope.launch {
-            Log.e("17072024","get db  data ${repository.getAllSavedQuotes().size}")
+            Log.e("17072024", "get db  data ${repository.getAllSavedQuotes().size}")
             return@launch
         }
     }
 
-     fun addItemToDb(item: Item){
+    fun addItemToDb(item: Result) {
         viewModelScope.launch {
             repository.insertSavedMovie(
                 item
-                /*BookmarkedMovie(
-                    item.id,
-                    item.adult,
-                    item.backdropPath,
-                    item.id,
-                    item.originalLanguage,
-                    item.originalTitle,
-                    item.overview,
-                    item.popularity,
-                    item.posterPath,
-                    item.releaseDate,
-                    item.title,
-                    item.video,
-                    item.voteAverage,
-                    item.voteCount,
-                    item.isBookmarked
-                )*/
 
-                )
+            )
         }
     }
 

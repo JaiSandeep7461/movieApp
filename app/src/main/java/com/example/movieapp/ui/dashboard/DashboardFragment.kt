@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentDashboardBinding
 import com.example.movieapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -25,14 +23,14 @@ class DashboardFragment : Fragment() {
 
     private val viewModel by viewModels<DashboardViewModel>()
 
-    private lateinit var popularAdapter: MoviesAdapter
+    private lateinit var popularAdapter: PopularMoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding= FragmentDashboardBinding.inflate(inflater,container,false)
-        popularAdapter = MoviesAdapter()
+        popularAdapter = PopularMoviesAdapter()
 
         popularAdapter.onItemClick= {item->
             Log.e("17072024","Item data>>> ${item.title}")

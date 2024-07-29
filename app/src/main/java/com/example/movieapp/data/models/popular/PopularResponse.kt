@@ -1,11 +1,9 @@
-package com.example.movieapp.data.models
+package com.example.movieapp.data.models.popular
 
 
 import com.google.gson.annotations.SerializedName
 
-data class NowPlayingResponse(
-    @SerializedName("dates")
-    val dates: Dates,
+data class PopularResponse(
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")

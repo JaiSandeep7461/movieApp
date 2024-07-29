@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.movieapp.R
 import com.example.movieapp.databinding.ActivityMainBinding
-import com.example.movieapp.ui.dashboard.MoviesAdapter
+import com.example.movieapp.ui.dashboard.PopularMoviesAdapter
 import com.example.movieapp.utils.Resource
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    private lateinit var moviesAdapter: MoviesAdapter
+    private lateinit var moviesAdapter: PopularMoviesAdapter
 
     private val viewModel: MainActivityViewModel by viewModels()
 

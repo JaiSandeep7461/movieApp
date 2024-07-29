@@ -3,8 +3,7 @@ package com.example.movieapp.ui.saved
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.data.models.BookmarkedMovie
-import com.example.movieapp.data.models.Item
+import com.example.movieapp.data.models.popular.Result
 import com.example.movieapp.data.repository.MovieRepository
 import com.example.movieapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +17,8 @@ class SavedViewModel @Inject constructor(
     private val repository: MovieRepository
 ) : ViewModel(){
 
-    private val _savedDbResponse = MutableStateFlow<Resource<List<Item>>>(Resource.Loading())
-     val savedDbResponse:MutableStateFlow<Resource<List<Item>>> = _savedDbResponse
+    private val _savedDbResponse = MutableStateFlow<Resource<List<Result>>>(Resource.Loading())
+     val savedDbResponse:MutableStateFlow<Resource<List<Result>>> = _savedDbResponse
 
 
     init {
@@ -39,7 +38,7 @@ class SavedViewModel @Inject constructor(
         }
     }
 
-    fun deleteItem(item: Item){
+    fun deleteItem(item: Result){
         Log.e("19072024","The Viewmodel>>> ${item.title}")
         viewModelScope.launch {
             repository.deleteSavedQuote(item.id.toString())

@@ -4,21 +4,21 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.movieapp.MovieApi
-import com.example.movieapp.data.models.Item
+import com.example.movieapp.data.models.popular.Result
 
 class MoviesDataSource(
     private val moviesApi: MovieApi
-) : PagingSource<Int, Item>() {
+) : PagingSource<Int, Result>() {
 
     companion object {
         private const val STARTING_PAGE_INDEX = 1
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Result>): Int? {
         return null
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Result> {
         try {
             val position = params.key ?: STARTING_PAGE_INDEX
             val response = moviesApi.getMovies(position)
